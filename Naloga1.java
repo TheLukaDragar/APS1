@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Naloga1 {
 
@@ -46,8 +47,11 @@ public class Naloga1 {
 
             if (x == dim - 1 && y == dim - 1) {
                 // found the end
-                System.out.println("Found!");
-                System.out.println(sum);
+                //System.out.println("Found!");
+                //System.out.println(sum);
+                PrintWriter writer = new PrintWriter(args[1], "UTF-8");
+                writer.println(String.valueOf(sum));
+                writer.close();
                 break;
             }
 
@@ -56,17 +60,19 @@ public class Naloga1 {
             int curr_height = field[y][x];
 
             if (x + 1 < dim && isHeightOk(curr_height, field[y][x + 1]) && !visited[(x + 1) + y * dim]) {
+                visited[(x + 1) + y * dim]=true;
 
                 queue.enqueue((x + 1) + y * dim, isGoingUp(curr_height, field[y][x + 1], sum));// desno
 
             }
             if (x - 1 >= 0 && isHeightOk(curr_height, field[y][x - 1]) && !visited[(x - 1) + y * dim]) {
-
+                visited[(x - 1) + y * dim]=true;
                 queue.enqueue((x - 1) + y * dim, isGoingUp(curr_height, field[y][x - 1], sum));// levo
 
             }
 
             if (y + 1 < dim && isHeightOk(curr_height, field[y + 1][x]) && !visited[x + (y + 1) * dim]) {
+                visited[x + (y + 1) * dim]=true;
 
                 queue.enqueue(x + (y + 1) * dim, isGoingUp(curr_height, field[y + 1][x], sum));// gor
 
@@ -74,6 +80,7 @@ public class Naloga1 {
 
             if (y - 1 >= 0 && isHeightOk(curr_height, field[y - 1][x]) && !visited[x + (y - 1) * dim]) {
 
+                visited[x + (y - 1) * dim]=true;
                 queue.enqueue(x + (y - 1) * dim, isGoingUp(curr_height, field[y - 1][x], sum));// dol
 
             }
