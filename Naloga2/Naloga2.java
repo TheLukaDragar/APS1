@@ -58,6 +58,7 @@ public class Naloga2 {
         //System.out.println(beriVrsta);
 
         PrintWriter writer = new PrintWriter(args[1], "UTF-8");
+        //test
        
        
 
