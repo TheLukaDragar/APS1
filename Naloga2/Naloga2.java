@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 
 public class Naloga2 {
@@ -30,13 +31,43 @@ public class Naloga2 {
             i++;
         }
 
-        //https://www.geeksforgeeks.org/reverse-the-elements-only-at-odd-positions-in-the-given-array/
+        
 
-        for (int j = 0; j < odstavki.length; j++) {
+        int[] beriVrsta =new int[stodstavki];
+        for (int m = 0; m < beriVrsta.length; m++) {
+            beriVrsta[m]=m+1;
+            
+        }
 
-            System.out.print(odstavki[j]);
+        for (int h = 0; h <= beriVrsta.length/2; h++) {
 
-            String odstavek = odstavki[j];
+            if (h%2==0) {
+                beriVrsta[h]=h+1;
+                
+            }
+            else{
+                int tmp=beriVrsta[h];
+
+                beriVrsta[h]=beriVrsta.length+1-h - beriVrsta.length%2 ;
+                beriVrsta[beriVrsta.length  - h - beriVrsta.length % 2] =tmp;
+
+            }
+            
+        }
+
+        //System.out.println(beriVrsta);
+
+        PrintWriter writer = new PrintWriter(args[1], "UTF-8");
+       
+       
+
+
+
+        for (int j = odstavki.length-1; j>=0; j--) {
+
+           
+
+            String odstavek = odstavki[beriVrsta[j]-1];
 
             int stPovedi = 0;
             for (int j2 = 0; j2 < odstavek.length(); j2++) {
@@ -64,33 +95,32 @@ public class Naloga2 {
                 if (blanks >= 2) {
                     blanks = 0;
 
-                    String[] besede = poved.split(" ");
+                    String[] besede = poved.trim().split(" ");
+                    System.out.println(poved);
                     String[] besedeSorted=new String[besede.length];
-                    int a2=0;
-
+                   
                   
-                    for(int a=besede.length-1;a>=0;a--){
+                    for(int a=besede.length-1;a>=0;a-=2){
 
+                        if (a==0 && (besede.length-1) % 2 == 0){
+                            besedeSorted[besedeSorted.length-1]=besede[0];
+                            break;
+                        }
+                                besedeSorted[besede.length-a]=besede[a];
+                                //System.out.println(besede.length - a);
+                           
+                                besedeSorted[besede.length - a-1]=besede[a-1];
+                                //System.out.println(besede.length - a -1);
                         
-                            if(a%2==0){
-                                besedeSorted[a2++]=besede[a];
-                                System.out.println(a2+1);
-                            }else{
-                                besedeSorted[a2--]=besede[a];
-                                System.out.println(a2-1);
-                            }
-                            a2++;
-
-                        
-
-                        
-
+                           
                        
                         
                     }
 
-                   
+                    
 
+                   
+                    //System.out.println(String.join("-", besedeSorted));
                     povedi[povediI] = String.join(" ", besedeSorted);
                     povediI++;
                     poved = "";
@@ -106,18 +136,22 @@ public class Naloga2 {
 
             }
 
-            for (String string : povedi) {
+            //for (String string : povedi) {
+                writer.println(String.valueOf(String.join(" ",povedi)));
 
-                System.out.println(string);
-                System.out.println("-------------------------------------");
+                //System.out.println(string);
+                //System.out.println("-------------------------------------");
 
-            }
+            //}
+
+
 
            
 
         }
 
         //
+        writer.close();
 
         br2.close();
     }
