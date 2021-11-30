@@ -58,30 +58,34 @@ public class Naloga1 {
             visited[vertex] = true;
 
             int curr_height = field[y][x];
+            int xp1=x+1;
+            int xm1=x-1;
+            int yp1=y+1;
+            int ym1=y-1;
 
-            if (x + 1 < dim && isHeightOk(curr_height, field[y][x + 1]) && !visited[(x + 1) + y * dim]) {
-                visited[(x + 1) + y * dim]=true;
+            if (xp1 < dim && isHeightOk(curr_height, field[y][xp1]) && !visited[(xp1) + y * dim]) {
+                visited[(xp1) + y * dim]=true;
 
-                queue.enqueue((x + 1) + y * dim, isGoingUp(curr_height, field[y][x + 1], sum));// desno
+                queue.enqueue((xp1) + y * dim, isGoingUp(curr_height, field[y][xp1], sum));// desno
 
             }
-            if (x - 1 >= 0 && isHeightOk(curr_height, field[y][x - 1]) && !visited[(x - 1) + y * dim]) {
-                visited[(x - 1) + y * dim]=true;
-                queue.enqueue((x - 1) + y * dim, isGoingUp(curr_height, field[y][x - 1], sum));// levo
-
-            }
-
-            if (y + 1 < dim && isHeightOk(curr_height, field[y + 1][x]) && !visited[x + (y + 1) * dim]) {
-                visited[x + (y + 1) * dim]=true;
-
-                queue.enqueue(x + (y + 1) * dim, isGoingUp(curr_height, field[y + 1][x], sum));// gor
+            if (xm1 >= 0 && isHeightOk(curr_height, field[y][xm1]) && !visited[(xm1) + y * dim]) {
+                visited[(xm1) + y * dim]=true;
+                queue.enqueue((xm1) + y * dim, isGoingUp(curr_height, field[y][xm1], sum));// levo
 
             }
 
-            if (y - 1 >= 0 && isHeightOk(curr_height, field[y - 1][x]) && !visited[x + (y - 1) * dim]) {
+            if (yp1 < dim && isHeightOk(curr_height, field[yp1][x]) && !visited[x + (yp1) * dim]) {
+                visited[x + (yp1) * dim]=true;
 
-                visited[x + (y - 1) * dim]=true;
-                queue.enqueue(x + (y - 1) * dim, isGoingUp(curr_height, field[y - 1][x], sum));// dol
+                queue.enqueue(x + (yp1) * dim, isGoingUp(curr_height, field[yp1][x], sum));// gor
+
+            }
+
+            if (ym1 >= 0 && isHeightOk(curr_height, field[ym1][x]) && !visited[x + (ym1) * dim]) {
+
+                visited[x + (ym1) * dim]=true;
+                queue.enqueue(x + (ym1) * dim, isGoingUp(curr_height, field[ym1][x], sum));// dol
 
             }
 
@@ -91,24 +95,19 @@ public class Naloga1 {
 
     static boolean isHeightOk(int now, int next) {
 
-        if (now == next) {
-            return true;
-        }
+       
         if (now < next) {
             return next - now <= 20;
         }
         if (now > next) {
             return now - next <= 30;
         }
-        return false;
+        return true;
 
     }
 
     static int isGoingUp(int now, int next, int sum) {
 
-        if (now == next) {
-            return sum;
-        }
         if (now < next) {
             int a = next - now >= 0 ? next - now : (next - now) * -1;
             return sum + a;
