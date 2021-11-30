@@ -40,7 +40,7 @@ public class Naloga1 {
             Integer sum = queue.frontsum();
             queue.dequeue();
 
-            System.out.printf("%d %d\n", vertex, sum);
+            //System.out.printf("%d %d\n", vertex, sum);
 
             int x = vertex % dim;
             int y = vertex / dim;

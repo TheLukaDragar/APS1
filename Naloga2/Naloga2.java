@@ -65,7 +65,7 @@ public class Naloga2 {
 
         
 
-        System.out.println(beriVrsta);
+        //System.out.println(beriVrsta);
 
         PrintWriter writer = new PrintWriter(args[1], "UTF-8");
         //test
@@ -94,7 +94,7 @@ public class Naloga2 {
 
             int povediI = 0;
 
-            System.out.println(reverse(odstavek).toString());
+            //System.out.println(reverse(odstavek).toString());
             for (char c : reverse(' '+odstavek).toCharArray()) { //zadnja poved nima blanka zato je dodan
 
                 
