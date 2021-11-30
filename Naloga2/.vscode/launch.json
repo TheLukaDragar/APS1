@@ -15,8 +15,8 @@
             "name": "Launch Naloga2",
             "request": "launch",
             "mainClass": "Naloga2",
-            "projectName": "Naloga2_bbd6217c",
-            "args": ["I1_2.TXT","OUT.TXT"]
+            "projectName": "Naloga2_e119d9b1",
+            "args": ["I1_8.txt","OUT.TXT"]
         }
     ]
 }

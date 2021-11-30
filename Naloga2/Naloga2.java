@@ -39,23 +39,33 @@ public class Naloga2 {
             
         }
 
-        for (int h = 0; h <= beriVrsta.length/2; h++) {
+        for (int h = 0; h <= beriVrsta.length/2-1; h++) {
 
-            if (h%2==0) {
+            if (h%2==1) {
                 beriVrsta[h]=h+1;
                 
             }
             else{
                 int tmp=beriVrsta[h];
 
-                beriVrsta[h]=beriVrsta.length+1-h - beriVrsta.length%2 ;
-                beriVrsta[beriVrsta.length  - h - beriVrsta.length % 2] =tmp;
+                beriVrsta[h]=beriVrsta.length-1-h + beriVrsta.length%2 ;
+                beriVrsta[beriVrsta.length -2 - h + beriVrsta.length % 2] =tmp;
 
             }
             
         }
 
-        //System.out.println(beriVrsta);
+        int[] copy = new int[beriVrsta.length];
+
+        for (int n = 0; n <= beriVrsta.length - 1; n++) {
+            copy[n] = beriVrsta[beriVrsta.length - 1 - n];
+        }
+        beriVrsta=copy;
+
+
+        
+
+        System.out.println(beriVrsta);
 
         PrintWriter writer = new PrintWriter(args[1], "UTF-8");
         //test
@@ -65,8 +75,6 @@ public class Naloga2 {
 
 
         for (int j = odstavki.length-1; j>=0; j--) {
-
-           
 
             String odstavek = odstavki[beriVrsta[j]-1];
 
@@ -78,14 +86,16 @@ public class Naloga2 {
                 }
 
             }
-            String[] povedi = new String[stPovedi-1];
+            String[] povedi = new String[stPovedi];
 
             String poved = "";
             boolean preberseenobesedo = false;
             int blanks = 0;
 
             int povediI = 0;
-            for (char c : reverse(odstavek).toCharArray()) {
+
+            System.out.println(reverse(odstavek).toString());
+            for (char c : reverse(' '+odstavek).toCharArray()) { //zadnja poved nima blanka zato je dodan
 
                 
 
@@ -93,11 +103,11 @@ public class Naloga2 {
                     blanks++;
                 }
 
-                if (blanks >= 2) {
-                    blanks = 0;
+                if (blanks == 2) { 
+                   
 
                     String[] besede = poved.trim().split(" ");
-                    System.out.println(poved);
+                    
                     String[] besedeSorted=new String[besede.length];
                    
                   
@@ -112,19 +122,18 @@ public class Naloga2 {
                            
                                 besedeSorted[besede.length - a-1]=besede[a-1];
                                 //System.out.println(besede.length - a -1);
-                        
-                           
-                       
-                        
                     }
 
                     
 
                    
                     //System.out.println(String.join("-", besedeSorted));
-                    povedi[povediI] = String.join(" ", besedeSorted);
+                    
+                    povedi[povediI] = String.join(" ", besedeSorted).strip();
+
                     povediI++;
                     poved = "";
+                    blanks = 0;
                     preberseenobesedo = false;
 
                 }
@@ -137,13 +146,16 @@ public class Naloga2 {
 
             }
 
-            //for (String string : povedi) {
-                writer.println(String.valueOf(String.join(" ",povedi)));
+          
+                writer.print(String.valueOf(String.join(" ",povedi).strip()));
+                if(j!=0){
+                    writer.print("\r");
+                writer.print("\n");
 
-                //System.out.println(string);
-                //System.out.println("-------------------------------------");
+                }
+                
 
-            //}
+              
 
 
 
@@ -151,7 +163,7 @@ public class Naloga2 {
 
         }
 
-        //
+       
         writer.close();
 
         br2.close();
