@@ -129,7 +129,7 @@ public class Naloga2 {
                    
                     //System.out.println(String.join("-", besedeSorted));
                     
-                    povedi[povediI] = String.join(" ", besedeSorted).strip();
+                    povedi[povediI] = String.join(" ", besedeSorted).trim();
 
                     povediI++;
                     poved = "";
@@ -147,7 +147,7 @@ public class Naloga2 {
             }
 
           
-                writer.print(String.valueOf(String.join(" ",povedi).strip()));
+                writer.print(String.valueOf(String.join(" ",povedi).trim()));
                 if(j!=0){
                     writer.print("\r");
                 writer.print("\n");
