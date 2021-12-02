@@ -10,7 +10,6 @@ public class Naloga2 {
         String line;
 
         BufferedReader br = new BufferedReader(new FileReader(args[0]));
-        br.mark(0);
         int stodstavki = 0;
         while ((line = br.readLine()) != null) {
 
