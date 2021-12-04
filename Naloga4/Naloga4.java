@@ -5,35 +5,34 @@ import java.io.PrintWriter;
 
 public class Naloga4 {
 
-    static int T;
-    static int N;
-    static int S;
-    static int K;
-    static int []LA;
-    static int []LW;
-    
-    public static void main(String[] args) throws IOException {
+	static int T;
+	static int N;
+	static int S;
+	static int K;
+	static int[] LA;
+	static int[] LW;
 
-        BufferedReader br = new BufferedReader(new FileReader(args[0]));
-     
-        T = Integer.parseInt(br.readLine());
-        N = Integer.parseInt(br.readLine());
-        S = Integer.parseInt(br.readLine());
-        K = Integer.parseInt(br.readLine());
-       
+	public static void main(String[] args) throws IOException {
 
-        String[] input = br.readLine().split(",");
-        LA = new int[input.length];
-        for (int i = 0; i < input.length; i++) {
-            LA[i] = Integer.parseInt(input[i]);
-        }
+		BufferedReader br = new BufferedReader(new FileReader(args[0]));
 
-        input = br.readLine().split(",");
-        LW = new int[input.length];
-        for (int i = 0; i < input.length; i++) {
-            LW[i] = Integer.parseInt(input[i]);
-        }
-        br.close();
+		T = Integer.parseInt(br.readLine());
+		N = Integer.parseInt(br.readLine());
+		S = Integer.parseInt(br.readLine());
+		K = Integer.parseInt(br.readLine());
+
+		String[] input = br.readLine().split(",");
+		LA = new int[input.length];
+		for (int i = 0; i < input.length; i++) {
+			LA[i] = Integer.parseInt(input[i]);
+		}
+
+		input = br.readLine().split(",");
+		LW = new int[input.length];
+		for (int i = 0; i < input.length; i++) {
+			LW[i] = Integer.parseInt(input[i]);
+		}
+		br.close();
 
 		ZunajQueue zunajQueue = new ZunajQueue(N, LA, LW);
 
@@ -41,34 +40,33 @@ public class Naloga4 {
 
 		Queue simQueue = new Queue(LA, LW).simQueue(T);
 
-		Stranka naStolu=null;
-		int strizenjecas=0;
+		Stranka naStolu = null;
+		int strizenjecas = 0;
 
 		for (int i = 1; i < T; i++) {
 
-			if(naStolu!=null && strizenjecas==0){
+			if (naStolu != null && strizenjecas == 0) {
 				postrizeniQueue.enqueue(naStolu);
-				naStolu=null;
-				S+=K;
+				naStolu = null;
+				S += K;
 			}
 
-			if(naStolu==null && zunajQueue.curr_size>0){
-				naStolu=zunajQueue.front();
-				strizenjecas=S;
+			if (naStolu == null && zunajQueue.curr_size > 0) {
+				naStolu = zunajQueue.front();
+				strizenjecas = S;
 
 			}
-			if(zunajQueue.curr_size>0){
+			if (zunajQueue.curr_size > 0) {
 				zunajQueue.Poosodobi(i);
 			}
 
-
 			Stranka naslednja = simQueue.front();
-			if(naslednja!=null && naslednja.prihod==i){
-				
-				if(naStolu == null){
+			if (naslednja != null && naslednja.prihod == i) {
+
+				if (naStolu == null) {
 					naStolu = naslednja;
-					strizenjecas=S;
-				}else{
+					strizenjecas = S;
+				} else {
 					zunajQueue.enqueue(naslednja);
 				}
 				simQueue.dequeue();
@@ -80,157 +78,135 @@ public class Naloga4 {
 		}
 
 		PrintWriter writer = new PrintWriter(args[1], "UTF-8");
-		
 
-		while(!postrizeniQueue.empty()){
+		while (!postrizeniQueue.empty()) {
 
 			writer.print(postrizeniQueue.front().id);
-			
-			
+
 			postrizeniQueue.dequeue();
-			if(!postrizeniQueue.empty()){
+			if (!postrizeniQueue.empty()) {
 				writer.print(",");
 			}
 
-			
 		}
 		writer.print("\n");
 
 		writer.close();
 
-
-		
-
-
-
-
-
-        
-    }
-}
-class Stranka
-{
-	
-    int id;
-    int prihod;
-    int potrplenje;
-	Stranka next;
-
-	Stranka(int id,int[] LA,int[] LW)
-	{
-        this.id=id;
-        this.prihod=0;
-        
-		
-        int h = 0;
-
-        for (int i = 1; i <= id; i++) {
-
-            if (h >= LA.length){
-                h = 0;       
-            } 
-
-            this.prihod += LA[h];
-            h++;
-        }
-      
-        this.potrplenje = LW[(id - 1) % LW.length];
-        this.next = null;
 	}
 }
 
-class Queue
-{
-	
+class Stranka {
+
+	int id;
+	int prihod;
+	int potrplenje;
+	Stranka next;
+
+	Stranka(int id, int[] LA, int[] LW) {
+		this.id = id;
+		this.prihod = 0;
+
+		int h = 0;
+
+		for (int i = 1; i <= id; i++) {
+
+			if (h >= LA.length) {
+				h = 0;
+			}
+
+			this.prihod += LA[h];
+			h++;
+		}
+
+		this.potrplenje = LW[(id - 1) % LW.length];
+		this.next = null;
+	}
+}
+
+class Queue {
+
 	private Stranka front;
 	private Stranka rear;
 	protected int[] LA;
 	protected int[] LW;
-	
-	public Queue(int[] LA,int[] LW)
-	{
-		this.LA=LA;
-		this.LW=LW;
+
+	public Queue(int[] LA, int[] LW) {
+		this.LA = LA;
+		this.LW = LW;
 		front = null;
 		rear = null;
-	
+
 	}
 
-	
-	
-	public boolean empty()
-	{
+	public boolean empty() {
 		return (front == null);
 	}
-	
-	public Stranka front()
-	{
+
+	public Stranka front() {
 		if (!empty())
 			return front;
 		else
 			return null;
 	}
-	
-	public void enqueue(Stranka stranka)
-	{
-		
+
+	public void enqueue(Stranka stranka) {
+
 		if (empty()) {
-            this.rear = stranka;
-            this.front = this.rear;
-        } else {
-            this.rear.next = stranka;
-            this.rear = this.rear.next;
-        }
+			this.rear = stranka;
+			this.front = this.rear;
+		} else {
+			this.rear.next = stranka;
+			this.rear = this.rear.next;
+		}
 	}
-	
-	public void dequeue()
-	{
+
+	public void dequeue() {
 		if (!empty()) {
-            if (front == rear) {
-                this.front = null;
-                this.rear = this.front;
-            } else {
-                this.front = this.front.next;
-            }
-        }
+			if (front == rear) {
+				this.front = null;
+				this.rear = this.front;
+			} else {
+				this.front = this.front.next;
+			}
+		}
 	}
+
 	public Queue simQueue(int T) {
-        int id = 1;
+		int id = 1;
 
-       
-        for (int i = 0; i < T; ) {
-            Stranka stranka = new Stranka(id, LA, LW);
-            if (stranka.prihod <= T) {
+		for (int i = 0; i < T;) {
+			Stranka stranka = new Stranka(id, LA, LW);
+			if (stranka.prihod <= T) {
 				id++;
-                this.enqueue(stranka);
+				this.enqueue(stranka);
 
-               
-
-            }
-            i = stranka.prihod;
-        }
-        return this;
-    }
+			}
+			i = stranka.prihod;
+		}
+		return this;
+	}
 }
 
-class ZunajQueue extends Queue{
+class ZunajQueue extends Queue {
 	int N;
 	int curr_size;
 
-	public ZunajQueue(int N,int[] LA, int[] LW) {
+	public ZunajQueue(int N, int[] LA, int[] LW) {
 		super(LA, LW);
-		this.curr_size=0;
-		this.N=N;
-	
+		this.curr_size = 0;
+		this.N = N;
+
 	}
+
 	@Override
-	
+
 	public void enqueue(Stranka stranka) {
-		if(this.curr_size<N){//gleda ce je dovolj prstora zunaj
+		if (this.curr_size < N) {// gleda ce je dovolj prstora zunaj
 			super.enqueue(stranka);
 			this.curr_size++;
 		}
-		
+
 	}
 
 	@Override
@@ -240,19 +216,15 @@ class ZunajQueue extends Queue{
 	}
 
 	public void Poosodobi(int T) {
-        Stranka trenuStranka = this.front();
-        while (trenuStranka != null) {
+		Stranka trenuStranka = this.front();
+		while (trenuStranka != null) {
 
-            if (trenuStranka.prihod + trenuStranka.potrplenje <= T) {//stranka zapusti cakalnico ce je predolgo cakala
-                this.dequeue();
-            } else
-                break;
-            trenuStranka = trenuStranka.next;
-        }
-    }
-
-	
-	
-
+			if (trenuStranka.prihod + trenuStranka.potrplenje <= T) {// stranka zapusti cakalnico ce je predolgo cakala
+				this.dequeue();
+			} else
+				break;
+			trenuStranka = trenuStranka.next;
+		}
+	}
 
 }
