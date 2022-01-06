@@ -96,7 +96,7 @@ public class Naloga8 {
                 root.left = nodes.get(root.id_l);
                 root.left.parent = root;
                 root.left.y = root.y + 1;
-                root.left.x = root.x - 1;
+               
                 buildTree(root.left);
 
             }
@@ -104,7 +104,7 @@ public class Naloga8 {
                 root.right = nodes.get(root.id_r);
                 root.right.parent = root;
                 root.right.y = root.y + 1;
-                root.right.x = root.x + 1;
+                
                 buildTree(root.right);
 
             }
