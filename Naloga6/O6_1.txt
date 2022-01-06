@@ -1,0 +1,2 @@
+OR,a,AND,b,c
+Naloga6$Enode@279f2327

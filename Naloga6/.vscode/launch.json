@@ -6,27 +6,9 @@
     "configurations": [
         {
             "type": "java",
-            "name": "Launch Naloga2",
-            "request": "launch",
-            "mainClass": "Naloga2.Naloga2",
-            "projectName": "APS1_78cbea7e"
-        },
-        {
-            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
-        },
-        {
-            "type": "java",
-            "name": "Launch Naloga1",
-            "request": "launch",
-            "mainClass": "Naloga1",
-            "projectName": "APS1_78cbea7e",
-            "args": [
-                "test.txt",
-                "out.txt"
-            ]
         },
         {
             "type": "java",
@@ -35,8 +17,8 @@
             "mainClass": "Naloga6",
             "projectName": "Naloga6_c13b2bdd",
             "args": [
-                "Naloga6\\I6_1.txt",
-                "O6_1.txt"
+                "I6_8.txt",
+                "R6_8.txt"
             ]
         }
     ]
