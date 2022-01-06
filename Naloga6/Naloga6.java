@@ -31,7 +31,7 @@ public class Naloga6 {
 
         Stack<String> atoms = new Stack<String>();
 
-        Enode m, l, r;
+        Enode m, n1, n2;
 
         int[] priority = new int[123];
         priority['O'] = 1;
@@ -40,9 +40,6 @@ public class Naloga6 {
         priority[')'] = 0;
 
         String exp="";
-
-       
-      
 
         while (st.hasMoreTokens()) {
            
@@ -59,21 +56,20 @@ public class Naloga6 {
 
             } else if (!exp.equals(")")) {
 
-                while (!atoms.isEmpty() && !atoms.peek().equals("(")
-                        && (priority[atoms.peek().charAt(0)] >= priority[exp.charAt(0)])) {
-
+                while (!atoms.isEmpty() && !atoms.peek().equals("(") && (!exp.equals("NOT") && priority[atoms.peek().charAt(0)] >= priority[exp.charAt(0)]) )
+                {
                     // elemente z manjso ali enako asociativnostjo
 
                     m = newNode(atoms.pop());
 
                     if(!m.data.equals("NOT")){
-                        l = nodes.pop();
-                        m.left = l;
+                        n1 = nodes.pop();
+                        m.right = n1;
                         
                     }
 
-                    r = nodes.pop();              
-                    m.right = r;
+                    n2 = nodes.pop();              
+                    m.left = n2;
 
                     nodes.push(m);
 
@@ -85,31 +81,28 @@ public class Naloga6 {
                     m = newNode(atoms.pop());
                     
                     if(!m.data.equals("NOT")){
-                        l = nodes.pop();
-                        m.left = l;   
+                        n1 = nodes.pop();
+                        m.right = n1;
                     }
-                    r = nodes.pop();
-                    m.right = r;
+                    n2 = nodes.pop();              
+                    m.left = n2;
+
                     nodes.push(m);
                 }
                 atoms.pop();
 
             }
 
-            System.out.println(exp);
+            //System.out.println(exp);
 
            
-
-            
-           
-
         }
 
-        String out = postorder(nodes.peek(), new StringBuilder()).reverse().toString();
-
+        String out =  preOrder(nodes.peek(),new StringBuilder()).toString(); //postorder(nodes.peek(), new StringBuilder()).reverse().toString();
+        
         out = out.substring(0, out.length() - 1);
 
-        System.out.println(out);
+        //System.out.println(out);
 
         Writer outt = new FileWriter(args[1]);
 
@@ -118,17 +111,22 @@ public class Naloga6 {
         outt.write(String.valueOf(treeHeight(nodes.peek())));
         outt.write("\n");
         outt.close();
+        
 
     }
 
-    static StringBuilder postorder(Enode root, StringBuilder sb) {
-        if (root != null && root.data != null) {
-            postorder(root.left, sb);
-            postorder(root.right, sb);
-            sb.append(",").append(new StringBuilder(root.data).reverse().toString());
+    
+
+    static StringBuilder preOrder(Enode node,StringBuilder sb) { 
+        if (node != null){
+
+        //System.out.printf("%s,", node.data); sb.append(node.data).append(","); 
+        preOrder(node.left,sb);
+        preOrder(node.right,sb); 
         }
         return sb;
-    }
+        }
+
 
     static int treeHeight(Enode root) {
         if (root == null)
