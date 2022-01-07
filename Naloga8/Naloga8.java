@@ -15,6 +15,8 @@ import javax.print.attribute.standard.PrinterStateReason;
 
 public class Naloga8 {
 
+    static int count;
+
     public static void main(String[] args) throws IOException {
 
         String line;
@@ -84,7 +86,8 @@ public class Naloga8 {
             // recursevly build tree from nodes
             buildTree(root);
 
-            getX(new ArrayList<Node>(), root, 0);
+            count=0;
+            x(root);
 
             
 
@@ -111,30 +114,20 @@ public class Naloga8 {
 
         }
 
-    
+        void x(Node root){
 
-        void getX(ArrayList<Node> elements, Node node, int x) {
-
-            if (node == null) {
+            if(root==null){
                 return;
             }
+            x(root.left);
+            
+            root.x=count;
+            count++;
+            x(root.right);
 
-            if (x == -1)
-                x++;
-            elements.add(x, node);
-            getX(elements, node.left, x);
-
-            x = -1;
-            for (int i = 0; i < elements.size(); i++) {
-                if (elements.get(i).v == node.v) {
-                    x = i;
-                }
-            }
-
-            getX(elements, node.right, x + 1);
-            node.x = x;
         }
 
+        
         public String printTree() {
             Queue<Node> queue = new LinkedList<>();
             queue.add(root);
