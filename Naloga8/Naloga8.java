@@ -11,8 +11,6 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.TreeSet;
 
-import javax.print.attribute.standard.PrinterStateReason;
-
 public class Naloga8 {
 
     static int count;

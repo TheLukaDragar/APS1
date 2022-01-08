@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Naloga10",
+            "request": "launch",
+            "mainClass": "Naloga10",
+            "projectName": "APS1_b5a2f640"
+        },
+        {
+            "type": "java",
             "name": "Launch Naloga2",
             "request": "launch",
             "mainClass": "Naloga2.Naloga2",
