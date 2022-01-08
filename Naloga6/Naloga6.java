@@ -120,7 +120,8 @@ public class Naloga6 {
     static StringBuilder preOrder(Enode node,StringBuilder sb) { 
         if (node != null){
 
-        //System.out.printf("%s,", node.data); sb.append(node.data).append(","); 
+        //System.out.printf("%s,", node.data);
+        sb.append(node.data).append(","); 
         preOrder(node.left,sb);
         preOrder(node.right,sb); 
         }
