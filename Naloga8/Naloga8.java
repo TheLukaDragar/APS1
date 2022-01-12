@@ -54,6 +54,8 @@ public class Naloga8 {
         Set<Integer> p_id = new TreeSet<Integer>();
         Set<Integer> all_id = new TreeSet<Integer>();
 
+        //gledamo child nodes samo root node se ne pojavi v child nodes 
+
         for (Node node : nodes.values()) {
             if (node.id_l != -1) {
                 p_id.add(node.id_l);
